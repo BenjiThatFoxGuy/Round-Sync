@@ -27,7 +27,7 @@ ext {
     NDK_TOOLCHAIN_VERSION = project.properties['de.felixnuesse.extract.ndkToolchainVersion']
     RCLONE_VERSION = project.properties['de.felixnuesse.extract.rCloneVersion']
     GO_REQ_VERSION = project.properties['de.felixnuesse.extract.goVersion']
-    RCLONE_MODULE = 'github.com/BenjiThatFoxGuy/bclon'
+    RCLONE_MODULE = 'github.com/gulp79/bclone'
     RCLONE_CUSTOM_VERSION_SUFFIX = '-bclone'
 
     PROJECT_DIR = projectDir.absolutePath
