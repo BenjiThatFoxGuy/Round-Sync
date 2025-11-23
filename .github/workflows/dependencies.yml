@@ -1,7 +1,7 @@
 name: "Verify dependency chain"
 on:
   workflow_dispatch:
-  push:
+  #push:
 
 jobs:
   dependency-change-verification:
