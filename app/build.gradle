@@ -3,10 +3,33 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 
 android {
-    signingConfigs {
+signingConfigs {
         release {
-            keyAlias 'fdroid'
-            storeFile file('.config/android/roundsync.keystore')
+            // 1. GITHUB ACTIONS (CI)
+            // Controlla se le variabili d'ambiente per la firma esistono
+            if (System.getenv("CMD_RELEASE_KEYSTORE") != null) {
+                storeFile file(System.getenv("CMD_RELEASE_KEYSTORE"))
+                storePassword System.getenv("CMD_RELEASE_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("CMD_RELEASE_KEY_ALIAS")
+                keyPassword System.getenv("CMD_RELEASE_KEY_PASSWORD")
+            }
+            // 2. COMPILAZIONE LOCALE (PC)
+            // Se non siamo su CI, cerca il file keystore.properties nella root
+            else {
+                def keystorePropertiesFile = rootProject.file("keystore.properties")
+                if (keystorePropertiesFile.exists()) {
+                    def props = new Properties()
+                    props.load(new FileInputStream(keystorePropertiesFile))
+                    
+                    // Verifica che il file della chiave indicato nelle proprietà esista
+                    if (props['storeFile'] && file(props['storeFile']).exists()) {
+                        storeFile file(props['storeFile'])
+                        storePassword props['storePassword']
+                        keyAlias props['keyAlias']
+                        keyPassword props['keyPassword']
+                    }
+                }
+            }
         }
     }
     ndkVersion project.properties['de.felixnuesse.extract.ndkVersion']
