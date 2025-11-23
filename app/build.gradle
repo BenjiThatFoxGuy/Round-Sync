@@ -39,7 +39,7 @@ signingConfigs {
         applicationId 'de.felixnuesse.extract'
         minSdkVersion 23
         compileSdk 34
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 410 // last digit is reserved for ABI, only ever end on 0!
         versionName '2.5.6'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
