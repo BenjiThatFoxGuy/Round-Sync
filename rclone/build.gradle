@@ -180,14 +180,29 @@ task createRcloneModule(type: Exec) {
 
 task checkoutRclone(dependsOn: createRcloneModule) {
     doLast {
-        // --- SCELTA REPOSITORY ---
-        // OPZIONE A (LOCALE): Punta alla cartella rclone scaricata a fianco
-        //def REPO_TARGET = Paths.get(PROJECT_DIR, '..', '..', 'rclone-extra').toAbsolutePath().toString()
+        // --- CONFIGURAZIONE REPOSITORY AUTOMATICA ---
+        def REPO_URL = "https://github.com/gulp79/rclone-extra.git"
+        def REPO_BRANCH = "android-integration" // <--- Cambia in "master" se necessario
+
+        println ">>> RICERCA ULTIMO COMMIT su ${REPO_BRANCH} di ${REPO_URL}..."
+
+        // Esegui 'git ls-remote' per trovare l'hash del branch
+        def gitOutput = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'ls-remote', REPO_URL, REPO_BRANCH
+            standardOutput = gitOutput
+        }
         
-        // OPZIONE B (ONLINE): Punta direttamente al mio GitHub (scommenta questa e commenta la A)
-        def REPO_TARGET = "github.com/gulp79/rclone-extra@android-integration" 
+        // Estrai l'SHA del commit (il primo elemento della riga)
+        def latestSha = gitOutput.toString().split('\t')[0].trim()
+
+        if (latestSha.isEmpty()) {
+            throw new GradleException("Impossibile trovare l'hash del branch ${REPO_BRANCH}. Verifica il nome del branch.")
+        }
         
-		// (Nota: usa @main o @nome_branch alla fine)
+        // Creazione del target nel formato corretto (@SHA)
+        def REPO_TARGET = "github.com/gulp79/rclone-extra@${latestSha}"
+
         println ">>> CONFIGURAZIONE BUILD CON: ${REPO_TARGET}"
 
         // 1. Imposta il REPLACE nel go.mod
@@ -211,12 +226,11 @@ func main() {}
             commandLine 'go', 'mod', 'tidy'
         }
 
-        // 4. Forza il download di TUTTE le dipendenze (incluse quelle dei tuoi backend extra)
+        // 4. Forza il download di TUTTE le dipendenze
         println ">>> RISOLUZIONE DIPENDENZE ESTESE..."
         exec {
             workingDir CACHE_PATH
             environment 'GOPATH', GOPATH
-            // Simuliamo una build scartando l'output per popolare go.sum
             commandLine 'go', 'build', '-mod=mod', '-v', '-o', '/dev/null', 'github.com/rclone/rclone'
         }
     }
