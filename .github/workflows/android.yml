@@ -52,18 +52,17 @@ jobs:
         echo "y" | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${{ env.NDK_VERSION }}"
 
     # --- DECODIFICA KEYSTORE ---
-    - name: Decode Keystore
-      # FIX: Controlliamo il secret attraverso il contesto 'env' del job, che è stabile
+- name: Decode Keystore
       if: ${{ env.APP_KEYSTORE_BASE64 }} 
       run: |
-        # Usiamo la variabile d'ambiente $APP_KEYSTORE_BASE64 che è stata definita all'inizio del job
-        echo "$APP_KEYSTORE_BASE64" | base64 --decode > app/release.keystore
+        # Decodifica il file keystore nella radice del progetto.
+        echo "$APP_KEYSTORE_BASE64" | base64 --decode > release.keystore
 
     # --- BUILD ---
     - name: Build Signed Release APK
       env:
-        # Passiamo le variabili d'ambiente (che contengono i secrets) a Gradle
-        CMD_RELEASE_KEYSTORE: app/release.keystore
+        # Passiamo il nome del file che si trova nella radice
+        CMD_RELEASE_KEYSTORE: release.keystore
         CMD_RELEASE_KEYSTORE_PASSWORD: ${{ env.KEY_STORE_PASSWORD }}
         CMD_RELEASE_KEY_ALIAS: ${{ env.KEY_ALIAS }}
         CMD_RELEASE_KEY_PASSWORD: ${{ env.KEY_PASSWORD }}
