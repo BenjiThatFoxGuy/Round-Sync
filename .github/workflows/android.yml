@@ -1,12 +1,19 @@
 name: Android CI Signed
 
 on:
-  workflow_dispatch: # Mantenuto: Esecuzione solo manuale dalla UI di GitHub Actions
-#  push:             # Rimosso: Non si avvia automaticamente ad ogni push/tag
+  workflow_dispatch: # Mantiene solo l'esecuzione manuale
 
 jobs:
   build-signed:
     runs-on: ubuntu-latest
+    
+    # PROMOZIONE DEI SECRETS ALL'AMBIENTE DEL JOB (FIX ERRORE)
+    # Questo rende i segreti disponibili e stabili nel contesto 'env'
+    env:
+      APP_KEYSTORE_BASE64: ${{ secrets.APP_KEYSTORE_BASE64 }}
+      KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
     steps:
     - name: Checkout sources
@@ -19,7 +26,6 @@ jobs:
         GO_VER=$(grep -E "^de\.felixnuesse\.extract\.goVersion=" gradle.properties | cut -d'=' -f2 | tr -d '[:space:]')
         NDK_VER=$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -f2 | tr -d '[:space:]')
         
-        # Fallback se non trova la versione nel file (sicurezza)
         if [ -z "$GO_VER" ]; then GO_VER="1.23.0"; fi
         
         echo "GO_VERSION=$GO_VER" >> $GITHUB_ENV
@@ -45,28 +51,27 @@ jobs:
       run: |
         echo "y" | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${{ env.NDK_VERSION }}"
 
-    # --- DECODIFICA KEYSTORE (Correzione Errore 'secrets') ---
+    # --- DECODIFICA KEYSTORE ---
     - name: Decode Keystore
-      # FIX: Rimosso il confronto '!= '' per prevenire l'errore Unrecognized named-value
-      if: ${{ secrets.APP_KEYSTORE_BASE64 }} 
-      env:
-        ENCODED_STRING: ${{ secrets.APP_KEYSTORE_BASE64 }}
+      # FIX: Controlliamo il secret attraverso il contesto 'env' del job, che è stabile
+      if: ${{ env.APP_KEYSTORE_BASE64 }} 
       run: |
-        # Decodifica la stringa Base64 in un file reale temporaneo
-        echo "$ENCODED_STRING" | base64 --decode > app/release.keystore
+        # Usiamo la variabile d'ambiente $APP_KEYSTORE_BASE64 che è stata definita all'inizio del job
+        echo "$APP_KEYSTORE_BASE64" | base64 --decode > app/release.keystore
 
     # --- BUILD ---
     - name: Build Signed Release APK
       env:
-        # Passa i secrets come variabili d'ambiente per Gradle
-        CMD_RELEASE_KEYSTORE: release.keystore
-        CMD_RELEASE_KEYSTORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-        CMD_RELEASE_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        CMD_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        # Passiamo le variabili d'ambiente (che contengono i secrets) a Gradle
+        CMD_RELEASE_KEYSTORE: app/release.keystore
+        CMD_RELEASE_KEYSTORE_PASSWORD: ${{ env.KEY_STORE_PASSWORD }}
+        CMD_RELEASE_KEY_ALIAS: ${{ env.KEY_ALIAS }}
+        CMD_RELEASE_KEY_PASSWORD: ${{ env.KEY_PASSWORD }}
       run: |
         ./gradlew assembleOssRelease --stacktrace
 
     # --- UPLOAD ARTIFACTS (Tutte le architetture) ---
+    # Nota: L'upload è per la release build (oss/release)
 
     - name: Upload APK (Universal)
       uses: actions/upload-artifact@v4
