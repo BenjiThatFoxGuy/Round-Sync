@@ -1,6 +1,7 @@
 # Round Sync - Rclone for Android
 [![license: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/gulp79/Round-Sync/blob/master/LICENSE) [![Latest Downloads](https://img.shields.io/github/downloads/gulp79/Round-Sync/latest/total
-)](https://github.com/gulp79/Round-Sync/releases) [![GitHub release](https://img.shields.io/github/v/release/gulp79/Round-Sync?include_prereleases)](https://github.com/gulp79/Round-Sync/releases/latest) 
+)](https://github.com/gulp79/Round-Sync/releases) [![GitHub release](https://img.shields.io/github/v/release/gulp79/Round-Sync?include_prereleases)](https://github.com/gulp79/Round-Sync/releases/latest) ![Latest Downloads](https://img.shields.io/github/downloads/gulp79/Round-Sync/total)
+
 
 > ⚠️ **Unofficial Fork Disclaimer**  
 > This is an **unofficial fork** of [Round Sync - Rclone for Android](https://github.com/newhinton/Round-Sync), with additional enhancements such as **Alist**, **Alldebrid**, **iCloud Photos**, **Teldrive** and **Terabox** support. 
