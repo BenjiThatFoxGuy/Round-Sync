@@ -31,7 +31,7 @@ ext {
     PROJECT_DIR = projectDir.absolutePath
     CACHE_PATH = Paths.get(PROJECT_DIR, 'cache').toString()
     
-    // MODIFICA 1: Separazione GOPATH per evitare conflitti con i moduli
+    // MODIFICATION 1: Separate GOPATH to avoid conflicts with modules
     GOPATH = Paths.get(PROJECT_DIR, 'gopath_env').toString()
     
     OUTPUT_BASE_PATH = Paths.get(PROJECT_DIR, '..', 'app', 'lib').toAbsolutePath().toString()
@@ -178,21 +178,21 @@ task createRcloneModule(type: Exec) {
     commandLine 'go', 'mod', 'init', 'rclone'
 }
 
-// [Parte precedente del file invariata...]
+// [Previous part of the file unchanged...]
 
 task checkoutRclone(dependsOn: createRcloneModule) {
     doLast {
-        // --- CONFIGURAZIONE REPOSITORY AUTOMATICA ---
+        // --- AUTOMATIC REPOSITORY CONFIGURATION ---
         def REPO_URL = "https://github.com/gulp79/rclone-extra.git"
-        // MODIFICA: Cambiato da 'android-integration' a 'master' poiché il branch vecchio non esiste.
-        // Se usi un branch diverso (es. 'main' o 'fix/qualcosa'), aggiorna questa riga.
+        // MODIFICATION: Changed from 'android-integration' to 'master' because the old branch doesn't exist.
+        // If you use a different branch (e.g. 'main' or 'fix/something'), update this line.
         def REPO_BRANCH = "master" 
 
-        println ">>> RICERCA ULTIMO COMMIT su ${REPO_BRANCH} di ${REPO_URL}..."
+        println ">>> SEARCHING FOR LATEST COMMIT on ${REPO_BRANCH} of ${REPO_URL}..."
 
-        // Esegui 'git ls-remote' per trovare l'hash del branch
+        // Execute 'git ls-remote' to find the branch hash
         def gitOutput = new ByteArrayOutputStream()
-        def gitError = new ByteArrayOutputStream() // Catturiamo anche gli errori
+        def gitError = new ByteArrayOutputStream() // Also capture errors
         
         try {
             exec {
@@ -201,10 +201,10 @@ task checkoutRclone(dependsOn: createRcloneModule) {
                 errorOutput = gitError
             }
         } catch (Exception e) {
-            println ">>> ATTENZIONE: Errore durante git ls-remote: ${e.message}"
+            println ">>> WARNING: Error during git ls-remote: ${e.message}"
         }
         
-        // Estrai l'SHA del commit (il primo elemento della riga)
+        // Extract the commit SHA (first element of the line)
         def outputString = gitOutput.toString().trim()
         def latestSha = ""
         
@@ -212,41 +212,41 @@ task checkoutRclone(dependsOn: createRcloneModule) {
             latestSha = outputString.split('\t')[0].trim()
         }
 
-        // MODIFICA: Gestione errore migliorata
+        // MODIFICATION: Improved error handling
         if (latestSha.isEmpty()) {
-            println ">>> ERRORE GIT: ${gitError.toString()}"
-            throw new GradleException("Impossibile trovare l'hash del branch '${REPO_BRANCH}' su ${REPO_URL}.\n" +
-                "Verifica che il repository esista, sia pubblico e che il branch si chiami correttamente (es. 'master' o 'main').")
+            println ">>> GIT ERROR: ${gitError.toString()}"
+            throw new GradleException("Unable to find the hash of branch '${REPO_BRANCH}' on ${REPO_URL}.\n" +
+                "Verify that the repository exists, is public, and that the branch is named correctly (e.g. 'master' or 'main').")
         }
         
-        // Creazione del target nel formato corretto (@SHA)
+        // Create the target in the correct format (@SHA)
         def REPO_TARGET = "github.com/gulp79/rclone-extra@${latestSha}"
 
-        println ">>> CONFIGURAZIONE BUILD CON: ${REPO_TARGET}"
+        println ">>> BUILD CONFIGURATION WITH: ${REPO_TARGET}"
 
-        // 1. Imposta il REPLACE nel go.mod
+        // 1. Set the REPLACE in go.mod
         exec {
             workingDir CACHE_PATH
             environment 'GOPATH', GOPATH
             commandLine 'go', 'mod', 'edit', '-replace', "github.com/rclone/rclone=${REPO_TARGET}"
         }
 
-        // 2. Crea file Dummy per importare librclone
+        // 2. Create dummy file to import librclone
         File dummyFile = new File(Paths.get(CACHE_PATH, "dummy.go").toString())
         dummyFile.write("""package main
 import _ "github.com/rclone/rclone/librclone"
 func main() {}
 """)
 
-        // 3. Esegui Tidy (scarica le basi)
+        // 3. Execute Tidy (downloads the basics)
         exec {
             workingDir CACHE_PATH
             environment 'GOPATH', GOPATH
             commandLine 'go', 'mod', 'tidy'
         }
 
-        // 4. Forza il download di TUTTE le dipendenze
-        println ">>> RISOLUZIONE DIPENDENZE ESTESE..."
+        // 4. Force download of ALL dependencies
+        println ">>> RESOLVING EXTENDED DEPENDENCIES..."
         exec {
             workingDir CACHE_PATH
             environment 'GOPATH', GOPATH
@@ -255,7 +255,7 @@ func main() {}
     }
 }
 
-// [Il resto del file tasks buildArm, buildAll, clean rimane invariato...]
+// [The rest of the file tasks buildArm, buildAll, clean remains unchanged...]
 
 task buildArm(dependsOn: checkoutRclone) {
     configure buildRclone('armeabi-v7a')
@@ -286,7 +286,7 @@ task clean {
             }
         } catch (ignored) {}
         delete CACHE_PATH
-        delete GOPATH // Cancella anche la cartella gopath_env
+        delete GOPATH // Also delete the gopath_env folder
         delete fileTree(OUTPUT_BASE_PATH).matching { include '**/librclone.so' }
     }
 }

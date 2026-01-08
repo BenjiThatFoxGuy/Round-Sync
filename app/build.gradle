@@ -6,22 +6,22 @@ android {
 signingConfigs {
         release {
             // 1. GITHUB ACTIONS (CI)
-            // Controlla se le variabili d'ambiente per la firma esistono
+            // Check if environment variables for signing exist
             if (System.getenv("CMD_RELEASE_KEYSTORE") != null) {
                 storeFile file(System.getenv("CMD_RELEASE_KEYSTORE"))
                 storePassword System.getenv("CMD_RELEASE_KEYSTORE_PASSWORD")
                 keyAlias System.getenv("CMD_RELEASE_KEY_ALIAS")
                 keyPassword System.getenv("CMD_RELEASE_KEY_PASSWORD")
             }
-            // 2. COMPILAZIONE LOCALE (PC)
-            // Se non siamo su CI, cerca il file keystore.properties nella root
+            // 2. LOCAL COMPILATION (PC)
+            // If not on CI, look for the keystore.properties file in the root
             else {
                 def keystorePropertiesFile = rootProject.file("keystore.properties")
                 if (keystorePropertiesFile.exists()) {
                     def props = new Properties()
                     props.load(new FileInputStream(keystorePropertiesFile))
                     
-                    // Verifica che il file della chiave indicato nelle proprietà esista
+                    // Verify that the key file indicated in the properties exists
                     if (props['storeFile'] && file(props['storeFile']).exists()) {
                         storeFile file(props['storeFile'])
                         storePassword props['storePassword']
