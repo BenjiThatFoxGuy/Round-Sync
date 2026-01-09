@@ -186,7 +186,7 @@ task checkoutRclone(dependsOn: createRcloneModule) {
         def REPO_URL = "https://github.com/BenjiThatFoxGuy/bclone.git"
         // MODIFICATION: Changed from 'android-integration' to 'master' because the old branch doesn't exist.
         // If you use a different branch (e.g. 'main' or 'fix/something'), update this line.
-        def REPO_BRANCH = "master" 
+        def REPO_BRANCH = "main" 
 
         println ">>> SEARCHING FOR LATEST COMMIT on ${REPO_BRANCH} of ${REPO_URL}..."
 
