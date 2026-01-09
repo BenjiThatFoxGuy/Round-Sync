@@ -43,10 +43,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '${{ env.GO_VERSION }}'
-          cache: true
-          cache-dependency-path: |
-            rclone/cache/go.sum
-            rclone/gopath_env/pkg/mod/cache/download
+          cache: false
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -69,8 +66,6 @@ jobs:
           path: |
             ~/go/pkg/mod
             ~/.cache/go-build
-            rclone/gopath_env
-            rclone/cache
           key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-rclone-${{ env.RCLONE_VERSION }}-${{ hashFiles('rclone/build.gradle') }}
           restore-keys: |
             ${{ runner.os }}-go-${{ env.GO_VERSION }}-rclone-${{ env.RCLONE_VERSION }}-
