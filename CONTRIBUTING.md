@@ -13,7 +13,7 @@ We welcome any contribution to Round Sync, and there are multiple ways to contri
 No one likes it if something goes wrong. However, before submitting a bug report, please make sure to check the following links:
 
 - [Round Sync documentation](https://roundsync.com/)
-- [search existing issues](https://github.com/newhinton/Round-Sync/issues?q=is%3Aissue)
+- [search existing issues](https://github.com/BenjiThatFoxGuy/Round-Sync/issues?q=is%3Aissue)
 - [rclone documentation](https://rclone.org/)
 - [rclone forum](https://forum.rclone.org/)
 
@@ -32,7 +32,7 @@ When filing a new bug report, answer all the questions in the template. This inc
 
 
 ## Localize Round Sync
- - Download [strings.xml](https://github.com/newhinton/Round-Sync/blob/master/app/src/main/res/values/strings.xml) file.
+ - Download [strings.xml](https://github.com/BenjiThatFoxGuy/Round-Sync/blob/master/app/src/main/res/values/strings.xml) file.
  - Open the `string.xml` file with your favorite text editor.
  - Delete all the `strings` with the attribute **translatable="false"**.
  - Translate `string` values from **en-US (English)** to that language you want to localize Round Sync.

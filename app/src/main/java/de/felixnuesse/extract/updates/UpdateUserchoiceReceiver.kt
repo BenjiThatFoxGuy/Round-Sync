@@ -55,7 +55,7 @@ class UpdateUserchoiceReceiver : BroadcastReceiver() {
             if(version.isNotEmpty()) {
                 if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
                     downloadAndInstall(
-                        URL("https://github.com/newhinton/Round-Sync/releases/download/$version/roundsync_$version-oss-$abi-release.apk"),
+                        URL("https://github.com/BenjiThatFoxGuy/Round-Sync/releases/download/$version/roundsync_$version-oss-$abi-release.apk"),
                         context,
                         version,
                         abi

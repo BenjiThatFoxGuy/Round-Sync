@@ -110,7 +110,7 @@
     <string name="app_icon_made_by">应用图标制作者</string>
     <string name="from">从</string>
     <string name="intro_welcome_title">欢迎！</string>
-    <string name="intro_welcome_description">Round Sync 是一个文件管理工具，可以处理存储在设备或远端的文件。了解更多信息，请访问 github.com/newhinton/Round-Sync</string>
+    <string name="intro_welcome_description">Round Sync 是一个文件管理工具，可以处理存储在设备或远端的文件。了解更多信息，请访问 github.com/BenjiThatFoxGuy/Round-Sync</string>
     <string name="intro_storage_title">存储访问</string>
     <string name="intro_storage_description">Round Sync 依赖于 Rclone，需要您的授权才能访问设备上的文件。请在出现提示时授予存储访问权限，否则应用可能无法正常工作。</string>
     <string name="intro_community_title">社区</string>
@@ -363,7 +363,7 @@
     </plurals>
 
     <string name="sync_notification_short">%s 共 %s ，剩余 %s</string>
-    <string name="abi_not_supported_arm_downgrade">不幸的是，此 Round Sync 版本与您的设备不兼容。试试 armeabi-v7a 的 APK， 从 github.com/newhinton/Round-Sync/releases/latest 下载。</string>
+    <string name="abi_not_supported_arm_downgrade">不幸的是，此 Round Sync 版本与您的设备不兼容。试试 armeabi-v7a 的 APK， 从 github.com/BenjiThatFoxGuy/Round-Sync/releases/latest 下载。</string>
     <string name="abi_not_supported">您的设备不支持此版本的 Round Sync。</string>
     <string name="trigger">触发器</string>
     <string name="title_activity_trigger">触发器</string>

@@ -1,10 +1,11 @@
 # Round Sync - Rclone for Android
-[![license: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/gulp79/Round-Sync/blob/master/LICENSE) [![Latest Downloads](https://img.shields.io/github/downloads/gulp79/Round-Sync/latest/total
-)](https://github.com/gulp79/Round-Sync/releases) [![GitHub release](https://img.shields.io/github/v/release/gulp79/Round-Sync?include_prereleases)](https://github.com/gulp79/Round-Sync/releases/latest) ![Latest Downloads](https://img.shields.io/github/downloads/gulp79/Round-Sync/total)
+[![license: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/BenjiThatFoxGuy/Round-Sync/blob/master/LICENSE) [![Latest Downloads](https://img.shields.io/github/downloads/BenjiThatFoxGuy/Round-Sync/latest/total
+)](https://github.com/BenjiThatFoxGuy/Round-Sync/releases) [![GitHub release](https://img.shields.io/github/v/release/BenjiThatFoxGuy/Round-Sync?include_prereleases)](https://github.com/BenjiThatFoxGuy/Round-Sync/releases/latest) ![Latest Downloads](https://img.shields.io/github/downloads/BenjiThatFoxGuy/Round-Sync/total)
 
 
 > ⚠️ **Unofficial Fork Disclaimer**  
-> This is an **unofficial fork** of [Round Sync - Rclone for Android](https://github.com/newhinton/Round-Sync), with additional enhancements such as **Alist**, **Alldebrid**, **iCloud Photos**, **Teldrive** and **Terabox** support. 
+> This is an **unofficial fork** of [gulp79's Round Sync fork](https://github.com/gulp79/Round-Sync), which itself is a fork of [newhinton's Round Sync - Rclone for Android](https://github.com/newhinton/Round-Sync).
+> This fork maintains the additional enhancements such as **Alist**, **Alldebrid**, **iCloud Photos**, **Teldrive** and **Terabox** support from gulp79's fork.
 > All the backends are from [rclone-extra](https://github.com/gulp79/rclone-extra).
 > I am **not affiliated with the upstream maintainers**, and this fork **does not intend to be malicious or harmful** in any way.  
 > Please **read the source code** if you're unsure or want to verify that it behaves as described.  
@@ -33,7 +34,7 @@ Visit [https://roundsync.com](https://roundsync.com) for more information!
 ## Features
 |                                                            Cloud Access                                                             |                                    256 Bit Encryption<sup>[1](https://rclone.org/crypt/#file-encryption)</sup>                                     |                                                         Integrated Experience                                                         |
 |:-----------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://github.com/gulp79/Round-Sync/blob/master/docs/cloud-computing.png?raw=true" alt="Cloud Access" width="144" />  | <img src="https://github.com/gulp79/Round-Sync/blob/master/docs/locked-padlock.png?raw=true" alt="256 Bit End-to-End Encryption" width="108" /> | <img src="https://github.com/gulp79/Round-Sync/blob/master/docs/smartphone.png?raw=true" alt="Integrated Experience" width="132"/> |
+| <img src="https://github.com/BenjiThatFoxGuy/Round-Sync/blob/master/docs/cloud-computing.png?raw=true" alt="Cloud Access" width="144" />  | <img src="https://github.com/BenjiThatFoxGuy/Round-Sync/blob/master/docs/locked-padlock.png?raw=true" alt="256 Bit End-to-End Encryption" width="108" /> | <img src="https://github.com/BenjiThatFoxGuy/Round-Sync/blob/master/docs/smartphone.png?raw=true" alt="Integrated Experience" width="132"/> |
 |                                             Use your cloud storage like a local folder.                                             |                                         Keep your files private on any cloud provider with crypt remotes.                                          |                                  Don't give up features or comfort just because it runs on a phone.                                   |
 
 - **File Management** (list, view, download, upload, move, rename, delete files and folders)
@@ -49,7 +50,7 @@ Visit [https://roundsync.com](https://roundsync.com) for more information!
 
 ## Installation
 
-Grab the [latest version](https://github.com/gulp79/Round-Sync/releases/latest) of the signed APK and install it on your phone.
+Grab the [latest version](https://github.com/BenjiThatFoxGuy/Round-Sync/releases/latest) of the signed APK and install it on your phone.
 | CPU architecture | Where to find | APK identifier |
 |:---|:--|:---:|
 |ARM 32 Bit | older devices | ```armeabi-v7a``` |

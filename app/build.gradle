@@ -36,7 +36,7 @@ signingConfigs {
     defaultConfig {
         generatedDensities = []
         vectorDrawables.generatedDensities = []
-        applicationId 'de.felixnuesse.extract'
+        applicationId 'au.benjithatfoxguy.bclone-android'
         minSdkVersion 23
         compileSdk 34
         targetSdkVersion 35
