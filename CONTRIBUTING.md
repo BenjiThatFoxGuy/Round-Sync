@@ -5,6 +5,7 @@ We welcome any contribution to Round Sync, and there are multiple ways to contri
  - [Reporting a bug](#reporting-a-bug)
  - [Localize Round Sync into your language](#localize-round-sync)
  - [Developing](#developing)
+ - [Creating a release](#creating-a-release)
  - [Submitting a pull request](#submitting-a-pr)
  - [Requesting a new features](#requesting-a-new-feature)
 
@@ -70,6 +71,21 @@ You can then build the app normally from Android Studio or from CLI by running:
 ./gradlew assembleOssRelease
 ```
 
+
+## Creating a Release
+
+To create a new release of Round Sync:
+
+1. Update the `versionCode` and `versionName` in `app/build.gradle`
+2. Commit the version changes to the main branch
+3. Create a new tag with the version number (e.g., `v2.5.7`)
+4. Push the tag to GitHub: `git push origin v2.5.7`
+5. The `android-release.yml` workflow will automatically:
+   - Build signed APKs for all architectures
+   - Create a GitHub release with the tag
+   - Upload all APK variants to the release
+
+The workflow extracts the version from the tag (removing the `v` prefix) and uses it to name the artifacts.
 
 ## Submitting a PR
 Here are a few tips on getting your PR merged:
