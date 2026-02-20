@@ -1,9 +1,10 @@
 ### Intro
-This application was created by [Patryk Kaczmarkiewicz](https://github.com/kaczmarkiewiczp). Your current build is maintained by [x0b](https://github.com/x0b).
+This application was created by [Patryk Kaczmarkiewicz](https://github.com/kaczmarkiewiczp). Your current build is maintained by [BenjiThatFoxGuy](https://github.com/BenjiThatFoxGuy).
 
 ### Github contributors
 Additionally, these people have contributed towards making RCX better:
 
+* [BenjiThatFoxGuy](https://github.com/BenjiThatFoxGuy)
 * [buywetwok](https://github.com/buywetwok)
 * [davsinghm](https://github.com/davsinghm)
 * [alyssadev](https://github.com/alyssadev)
